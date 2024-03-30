@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { EncryptenContractAddress, EncryptenAbi } from "../constant";
 import { UpvoteIcon, DownvoteIcon } from "../assets/ConstantIcons";
-import {
-  useAccount,
-  useBalance,
-  useReadContract,
-  useWriteContract,
-  useReadContracts,
-} from "wagmi";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import Notification from "./Notification";
-import { voteOnProposal } from "../utils/contractUtils";
+import { waitForTransactionReceipt } from "@wagmi/core";
+
 
 const CustomComponent = () => {
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [initialFetchDone, setInitialFetchDone] = useState(false); // Track if initial data fetch is done
+  const [initialFetchDone, setInitialFetchDone] = useState(false);
 
   const [loadingStates, setLoadingStates] = useState({});
   const [notification, setNotification] = useState(null);
@@ -22,7 +17,6 @@ const CustomComponent = () => {
   const { address, isConnected } = useAccount();
 
   const { writeContract } = useWriteContract();
-
 
   const data = useReadContract({
     abi: EncryptenAbi,
@@ -65,7 +59,7 @@ const CustomComponent = () => {
           if (isMounted) {
             setProposals(formattedProposals);
             setLoading(false);
-            setInitialFetchDone(true); // Set initial fetch done
+            setInitialFetchDone(true); 
           }
         }
       } catch (error) {
@@ -91,13 +85,14 @@ const CustomComponent = () => {
     }));
 
     try {
-      const tx = await writeContract({ // Use the writeContract function obtained from the hook
-        address: EncryptenContractAddress,
+      const tx = await writeContract({
         abi: EncryptenAbi,
+        address: EncryptenContractAddress,
         functionName: "vote",
-        args: (proposalId, isUpvote)
-        ,
+        args: [proposalId, isUpvote]
       });
+
+      await waitForTransactionReceipt(tx);
 
       setNotification({
         message: "Vote submitted successfully!",
