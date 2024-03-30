@@ -62,12 +62,12 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <a
+          <Link
             href="/dao"
             className="bg-gray-200 text-[#203475] px-4 py-1 rounded-md"
           >
             Launch App
-          </a>
+          </Link>
         </div>
         <div className="md:hidden pr-3">
           <button onClick={toggleNavbar} className="text-[#203475]">
@@ -89,28 +89,28 @@ const Navbar = () => {
         <div className="md:hidden py-4 border-b border-gray-300 pl-4">
           <ul className="flex flex-col space-y-3">
             <li>
-              <a href="#" className="text-white">
+              <Link href="#" className="text-white">
                 Overview
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/roadmap" className="text-white">
+              <Link href="/roadmap" className="text-white">
                 Roadmap
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/documentation" className="text-white">
+              <Link href="/documentation" className="text-white">
                 Documentation
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="mt-3">
-            <a
+            <Link
               href="/dao"
               className="bg-gray-200 text-[#203475] px-4 py-1 rounded-md"
             >
               Launch App
-            </a>
+            </Link>
           </div>
         </div>
       )}

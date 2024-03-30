@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -27,9 +28,9 @@ const MainContent = () => {
         </p>
 
         <div className="mt-6">
-          <a href="/dao" className="bg-gray-200 text-[#203475] px-4 py-2">
+          <Link href="/dao" className="bg-gray-200 text-[#203475] px-4 py-2">
             Launch App
-          </a>
+          </Link>
         </div>
       </div>
     </>
