@@ -3,8 +3,7 @@ import { EncryptenContractAddress, EncryptenAbi } from "../constant";
 import { UpvoteIcon, DownvoteIcon } from "../assets/ConstantIcons";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import Notification from "./Notification";
-import { waitForTransactionReceipt } from "@wagmi/core";
-
+import LoadingSpinner from "./LoadingSpinner";
 
 const CustomComponent = () => {
   const [proposals, setProposals] = useState([]);
@@ -16,7 +15,7 @@ const CustomComponent = () => {
 
   const { address, isConnected } = useAccount();
 
-  const { writeContract } = useWriteContract();
+  const { writeContractAsync } = useWriteContract();
 
   const data = useReadContract({
     abi: EncryptenAbi,
@@ -59,7 +58,7 @@ const CustomComponent = () => {
           if (isMounted) {
             setProposals(formattedProposals);
             setLoading(false);
-            setInitialFetchDone(true); 
+            setInitialFetchDone(true);
           }
         }
       } catch (error) {
@@ -76,34 +75,46 @@ const CustomComponent = () => {
     return () => {
       isMounted = false;
     };
-  }, [data, initialFetchDone]); // Include initialFetchDone in the dependency array
+  }, [data, initialFetchDone]);
 
-  const castVote = async (proposalId, isUpvote) => {
+  const castVote = async (proposalId, isVote) => {
     setLoadingStates((prevLoadingStates) => ({
       ...prevLoadingStates,
       [proposalId]: true,
     }));
 
     try {
-      const tx = await writeContract({
+      const tx = await writeContractAsync({
         abi: EncryptenAbi,
         address: EncryptenContractAddress,
         functionName: "vote",
-        args: [proposalId, isUpvote]
+        args: [proposalId, isVote],
       });
 
-      await waitForTransactionReceipt(tx);
+      await tx.wait();
 
       setNotification({
         message: "Vote submitted successfully!",
         type: "success",
       });
     } catch (error) {
-      console.log("Error Message: ", error);
-      setNotification({
-        message: "Error submitting vote. Please try again.",
-        type: "error",
-      });
+      console.log("Error Message: ", error.message);
+      if (error.message.includes("Already Voted")) {
+        setNotification({
+          message: "You have already voted on this proposal.",
+          type: "error",
+        });
+      } else if (error.message.includes("Voting is closed!")) {
+        setNotification({
+          message: "Proposal Voting is closed!",
+          type: "error",
+        });
+      } else {
+        setNotification({
+          message: "Error submitting vote. Please try again.",
+          type: "error",
+        });
+      }
     } finally {
       setLoadingStates((prevLoadingStates) => ({
         ...prevLoadingStates,
@@ -119,8 +130,9 @@ const CustomComponent = () => {
   }
 
   if (loading && !initialFetchDone) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
+  
 
   return (
     <>
@@ -204,5 +216,7 @@ const LoadingAnimation = () => (
     <span className="loader__dot">•</span>
   </span>
 );
+
+
 
 export default CustomComponent;
