@@ -133,7 +133,9 @@ const CustomComponent = () => {
 
   if (!isConnected) {
     return (
-      <div>You are not connected. Please connect your wallet to proceed.</div>
+      <div className="container mx-auto text-center p-4 mb-4 text-gray-200">
+        You are not connected. Please connect your wallet to access proposals.
+      </div>
     );
   }
 
