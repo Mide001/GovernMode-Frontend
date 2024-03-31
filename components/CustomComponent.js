@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { EncryptenContractAddress, EncryptenAbi } from "../constant";
 import { UpvoteIcon, DownvoteIcon } from "../assets/ConstantIcons";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
+import { waitForTransactionReceipt } from "@wagmi/core";
+import { config } from "./config";
 import Notification from "./Notification";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -91,7 +93,13 @@ const CustomComponent = () => {
         args: [proposalId, isVote],
       });
 
-      await tx.wait();
+      console.log("Transaction Hash: ", tx);
+
+      const transactionReceipt = await waitForTransactionReceipt(config, {
+        hash: tx,
+      });
+
+      console.log("Transaction Hash", transactionReceipt);
 
       setNotification({
         message: "Vote submitted successfully!",
@@ -132,7 +140,6 @@ const CustomComponent = () => {
   if (loading && !initialFetchDone) {
     return <LoadingSpinner />;
   }
-  
 
   return (
     <>
@@ -216,7 +223,5 @@ const LoadingAnimation = () => (
     <span className="loader__dot">•</span>
   </span>
 );
-
-
 
 export default CustomComponent;
