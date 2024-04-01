@@ -4,7 +4,7 @@ import { EncryptenContractAddress, EncryptenAbi } from "../constant";
 import Notification from "./Notification";
 import { useAccount, useWriteContract } from "wagmi";
 import { waitForTransactionReceipt } from "@wagmi/core";
-import { config } from "process";
+import { config } from "./config";
 
 const NewProposal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,7 +19,6 @@ const NewProposal = () => {
   const { address, isConnected } = useAccount();
 
   const { writeContractAsync } = useWriteContract();
-
 
   const errorMessages = {
     invalidTitle: "Title should contain only letters and spaces.",
@@ -68,7 +67,7 @@ const NewProposal = () => {
         abi: EncryptenAbi,
         address: EncryptenContractAddress,
         functionName: "createProposal",
-        args: [title, content, durationValue]
+        args: [title, content, duration],
       });
 
       console.log("Transaction Hash: ", tx);
@@ -81,7 +80,11 @@ const NewProposal = () => {
 
       setLoading(false);
 
-      setSuccessMessage(`${address.slice(0, 3)}...${address.slice(-2)} successfully created a proposal!`);
+      setSuccessMessage(
+        `${address.slice(0, 3)}...${address.slice(
+          -2
+        )} successfully created a proposal!`
+      );
 
       if (!isConnected) {
         console.error("Connect your wallet first.");
@@ -93,7 +96,7 @@ const NewProposal = () => {
       setTimeout(() => {
         setSuccessMessage("");
         closeModal();
-        window.location.reload(); 
+        window.location.reload();
       }, 3000);
     } catch (error) {
       console.error("Error:", error.message);

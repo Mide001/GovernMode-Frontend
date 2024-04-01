@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Set height to 100% of the viewport height */
+  height: 100vh;
 }
 
 .spinner {
@@ -18,7 +18,7 @@
   top: 0;
   width: 12px;
   height: 12px;
-  background-color: #3498db; /* Change the color to any color you prefer */
+  background-color: #EEEEEE; 
   border-radius: 50%;
   animation: spin 1.2s infinite ease-in-out;
 }

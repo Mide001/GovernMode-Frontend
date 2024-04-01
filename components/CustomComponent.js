@@ -6,6 +6,7 @@ import { waitForTransactionReceipt } from "@wagmi/core";
 import { config } from "./config";
 import Notification from "./Notification";
 import LoadingSpinner from "./LoadingSpinner";
+import { SearchIcon } from "../assets/ConstantIcons";
 
 const CustomComponent = () => {
   const [proposals, setProposals] = useState([]);
@@ -14,6 +15,8 @@ const CustomComponent = () => {
 
   const [loadingStates, setLoadingStates] = useState({});
   const [notification, setNotification] = useState(null);
+  const [searchValue, setSearchValue] = useState(""); // State for search query
+  const [filter, setFilter] = useState("all");
 
   const { address, isConnected } = useAccount();
 
@@ -47,7 +50,7 @@ const CustomComponent = () => {
               content: proposal.content,
               upVote: Number(proposal.forVotes),
               downVote: Number(proposal.againstVotes),
-              startTime: startTime.toLocaleString(),
+              startTime: startTime.getTime(), 
               endTime: endTime.toLocaleString(),
               status: status,
               creator: `${proposal.creator.slice(
@@ -56,6 +59,9 @@ const CustomComponent = () => {
               )}...${proposal.creator.slice(-3)}`,
             };
           });
+
+          // Sort the proposals based on the startTime in descending order
+          formattedProposals.sort((a, b) => b.startTime - a.startTime);
 
           if (isMounted) {
             setProposals(formattedProposals);
@@ -101,15 +107,32 @@ const CustomComponent = () => {
 
       console.log("Transaction Hash", transactionReceipt);
 
+      // Update the vote count immediately after a successful vote
+      setProposals((prevProposals) =>
+        prevProposals.map((proposal) =>
+          proposal.id === proposalId
+            ? {
+                ...proposal,
+                upVote: isVote ? proposal.upVote + 1 : proposal.upVote,
+                downVote: !isVote ? proposal.downVote + 1 : proposal.downVote,
+              }
+            : proposal
+        )
+      );
+
       setNotification({
-        message: "Vote submitted successfully!",
+        message: `${address.slice(0, 3)}...${address.slice(
+          -2
+        )} vote submitted successfully!`,
         type: "success",
       });
     } catch (error) {
       console.log("Error Message: ", error.message);
       if (error.message.includes("Already Voted")) {
         setNotification({
-          message: "You have already voted on this proposal.",
+          message: `${address.slice(0, 3)}...${address.slice(
+            -2
+          )} have already voted on this proposal.`,
           type: "error",
         });
       } else if (error.message.includes("Voting is closed!")) {
@@ -131,16 +154,44 @@ const CustomComponent = () => {
     }
   };
 
+  const handleFilterChange = (value) => {
+    setFilter(value);
+  };
+
+  const filteredProposals = proposals
+    .filter((proposal) => {
+      if (filter === "active") {
+        return proposal.status === "active";
+      } else if (filter === "closed") {
+        return proposal.status === "inactive";
+      } else {
+        return true;
+      }
+    })
+    .filter((proposal) => {
+      const title = proposal.title.toLowerCase();
+      return title.includes(searchValue.toLowerCase());
+    });
+
   if (!isConnected) {
     return (
-      <div className="container mx-auto text-center p-4 mb-4 text-gray-200">
+      <div className="container mx-auto text-center p-4 text-gray-200">
         You are not connected. Please connect your wallet to access proposals.
       </div>
     );
   }
 
   if (loading && !initialFetchDone) {
-    return <LoadingSpinner />;
+    return (
+      <>
+        <div
+          className="flex items-center justify-center"
+          style={{ minHeight: "80vh" }}
+        >
+          <LoadingSpinner />;
+        </div>
+      </>
+    );
   }
 
   return (
@@ -152,7 +203,34 @@ const CustomComponent = () => {
           onClose={() => setNotification(null)}
         />
       )}
-      {proposals.map((proposal) => (
+      <div className="max-w-3xl mx-auto mb-4 mb-4 flex justify-between items-center">
+        <div className="md:flex flex-1 md:ml-4 md:mr-4 ml-2 mr-2 relative">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+            <SearchIcon />
+          </span>
+          <input
+            type="text"
+            placeholder="Search DAOs, Proposal Title..."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="text-gray-700 border-none rounded-full pl-8 py-2 w-full"
+            style={{ fontSize: "14px" }}
+          />
+        </div>
+
+        <div className="relative">
+          <select
+            className="bg-transparent border border-gray-400 text-gray-200 rounded-md py-2 px-2"
+            onChange={(e) => handleFilterChange(e.target.value)}
+            value={filter}
+          >
+            <option value="all">All</option>
+            <option value="active">Active</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+      </div>
+      {filteredProposals.map((proposal) => (
         <div
           key={proposal.id}
           className={`bg-white rounded-lg shadow-lg ${
