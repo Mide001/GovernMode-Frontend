@@ -107,7 +107,7 @@ const NewProposal = () => {
   return (
     <div className="container mx-auto flex items-center justify-end mt-8 p-2">
       <button
-        className="border border-gray-200 text-gray-200 px-4 py-2 rounded-full flex items-center"
+        className="border border-[#D7FF00] text-[#D7FF00] px-4 py-2 rounded-full flex items-center"
         onClick={openModal}
       >
         <PlusIcon className="h-5 w-5 mr-2" /> New Proposal
@@ -205,7 +205,7 @@ const NewProposal = () => {
               </button>
               <button
                 onClick={closeModal}
-                className="ml-2 px-4 py-2 border border-gray-400 rounded hover:bg-gray-200"
+                className="ml-2 px-4 py-2 text-[red] border border-gray-400 rounded hover:bg-gray-200"
               >
                 Cancel
               </button>

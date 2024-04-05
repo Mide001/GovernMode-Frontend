@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Logo from "../assets/Encryten-logo.png";
+import Logo from "../assets/Governmode-Dark.png";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ const DaoNavbar = () => {
         <div className="container mx-auto flex items-center justify-between border-b border-gray-300 py-2 pl-2">
           <div>
             <Link href="/">
-              <Image src={Logo} alt="Encrypten Logo" className="w-16 h-5" />
+              <Image src={Logo} alt="Encrypten Logo" className="w-20 h-6" />
             </Link>
           </div>
 

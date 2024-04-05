@@ -15,7 +15,7 @@ const CustomComponent = () => {
 
   const [loadingStates, setLoadingStates] = useState({});
   const [notification, setNotification] = useState(null);
-  const [searchValue, setSearchValue] = useState(""); // State for search query
+  const [searchValue, setSearchValue] = useState("");
   const [filter, setFilter] = useState("all");
 
   const { address, isConnected } = useAccount();
@@ -50,7 +50,7 @@ const CustomComponent = () => {
               content: proposal.content,
               upVote: Number(proposal.forVotes),
               downVote: Number(proposal.againstVotes),
-              startTime: startTime.getTime(), 
+              startTime: startTime.getTime(),
               endTime: endTime.toLocaleString(),
               status: status,
               creator: `${proposal.creator.slice(
@@ -175,7 +175,10 @@ const CustomComponent = () => {
 
   if (!isConnected) {
     return (
-      <div className="container mx-auto text-center p-4 text-gray-200">
+      <div
+        className="container mx-auto text-center p-4 text-gray-200"
+        style={{ minHeight: "65vh" }}
+      >
         You are not connected. Please connect your wallet to access proposals.
       </div>
     );
@@ -188,7 +191,7 @@ const CustomComponent = () => {
           className="flex items-center justify-center"
           style={{ minHeight: "80vh" }}
         >
-          <LoadingSpinner />;
+          <LoadingSpinner />
         </div>
       </>
     );

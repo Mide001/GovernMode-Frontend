@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "../assets/Encryten-logo.png";
+import Logo from "../assets/Governmode-Dark.png";
 import Image from "next/image";
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center border-b border-gray-300 py-2 pl-4">
         <div>
           <Link href="/">
-            <Image src={Logo} alt="Encrypten Logo" className="w-16 h-5" />
+            <Image src={Logo} alt="Encrypten Logo" className="w-20 h-6" />
           </Link>
         </div>
         <div className="hidden md:flex space-x-6">
@@ -28,43 +28,43 @@ const Navbar = () => {
               <Link
                 href={"/"}
                 className={`${
-                  pathname === "/" ? "text-[#191970]" : "text-white"
+                  pathname === "/" ? "text-[#D7FF00]" : "text-white"
                 }`}
                 aria-label="Go to Home"
               >
                 Overview
               </Link>
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#191970] transform scale-x-0 group-hover:scale-x-100 origin-bottom transition-transform"></div>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#D7FF00] transform scale-x-0 group-hover:scale-x-100 origin-bottom transition-transform"></div>
             </li>
             <li className="group relative">
               <Link
                 href={"/roadmap"}
                 className={`${
-                  pathname === "/roadmap" ? "text-[#191970]" : "text-white"
+                  pathname === "/roadmap" ? "text-[#D7FF00]" : "text-white"
                 }`}
               >
                 Roadmap
               </Link>
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#191970] transform scale-x-0 group-hover:scale-x-100 origin-bottom transition-transform"></div>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#D7FF00] transform scale-x-0 group-hover:scale-x-100 origin-bottom transition-transform"></div>
             </li>
             <li className="group relative">
               <Link
                 href={"/documentation"}
                 className={`${
                   pathname === "/documentation"
-                    ? "text-[#191970]"
+                    ? "text-[#D7FF00]"
                     : "text-white"
                 }`}
               >
                 Documentation
               </Link>
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#191970] transform scale-x-0 group-hover:scale-x-100 origin-bottom transition-transform"></div>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#D7FF00] transform scale-x-0 group-hover:scale-x-100 origin-bottom transition-transform"></div>
             </li>
           </ul>
 
           <Link
             href="/dao"
-            className="bg-gray-200 text-[#203475] px-4 py-1 rounded-md"
+            className="border border-[#D7FF00] px-4 py-1 rounded-md"
           >
             Launch App
           </Link>
@@ -107,7 +107,7 @@ const Navbar = () => {
           <div className="mt-3">
             <Link
               href="/dao"
-              className="bg-gray-200 text-[#203475] px-4 py-1 rounded-md"
+              className="border border-[#D7FF00] px-4 py-1 rounded-md"
             >
               Launch App
             </Link>

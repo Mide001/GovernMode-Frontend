@@ -21,7 +21,7 @@ const Footer = () => {
             <span className="mb-2 lg:mb-0 text-gray-200">Cookie Policy</span>
           </div>
 
-          <div className="text-gray-200">&copy; Encrypten {new Date().getFullYear()}</div>
+          <div className="text-[#D7FF00]">&copy; GovernMode {new Date().getFullYear()}</div>
         </div>
       </div>
     </div>
