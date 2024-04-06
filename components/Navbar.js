@@ -49,9 +49,9 @@ const Navbar = () => {
             </li>
             <li className="group relative">
               <Link
-                href={"/documentation"}
+                href={"https://governmode.gitbook.io/documentation"}
                 className={`${
-                  pathname === "/documentation"
+                  pathname === "https://governmode.gitbook.io/documentation"
                     ? "text-[#D7FF00]"
                     : "text-white"
                 }`}
@@ -99,7 +99,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/documentation" className="text-white">
+              <Link href="https://governmode.gitbook.io/documentation" className="text-white">
                 Documentation
               </Link>
             </li>
