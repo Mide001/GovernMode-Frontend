@@ -3,7 +3,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import { mode, modeTestnet } from "wagmi/chains";
+import { modeTestnet } from "wagmi/chains";
 import {
   getDefaultConfig,
   RainbowKitProvider,
@@ -15,7 +15,6 @@ const config = getDefaultConfig({
   appName: "GovernMode",
   projectId: "9a4b5a26abe0f8427056e21b695a2cf6",
   chains: [
-    mode,
     modeTestnet,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
       ? [modeTestnet]

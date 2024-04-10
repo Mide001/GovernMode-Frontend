@@ -7,6 +7,7 @@ import { config } from "./config";
 import Notification from "./Notification";
 import LoadingSpinner from "./LoadingSpinner";
 import { SearchIcon } from "../assets/ConstantIcons";
+import Link from "next/link";
 
 const CustomComponent = () => {
   const [proposals, setProposals] = useState([]);
@@ -57,6 +58,7 @@ const CustomComponent = () => {
                 0,
                 4
               )}...${proposal.creator.slice(-3)}`,
+              creatorAddress: proposal.creator,
             };
           });
 
@@ -244,7 +246,13 @@ const CustomComponent = () => {
             <h2 className="text-xl text-[#191970] font-semibold">
               {proposal.title}
             </h2>
-            <p className="text-gray-600 text-sm">{proposal.creator}</p>
+            <p className="text-gray-600 text-sm">
+              <Link
+                href={`https://sepolia.explorer.mode.network/address/${proposal.creatorAddress}`}
+              >
+                {proposal.creator}
+              </Link>
+            </p>
           </div>
           <div className="p-4">
             <p className="text-gray-600">{proposal.content}</p>
