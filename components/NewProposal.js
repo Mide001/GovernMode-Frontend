@@ -190,6 +190,10 @@ const NewProposal = () => {
               <span className="text-sm text-gray-500">
                 proposal start time starts immediately the proposal is created
               </span>
+              <p className="text-sm text-gray-500 mt-4">
+                Please carefully fill out this proposal as changes cannot be
+                made after creating it.
+              </p>
             </div>
 
             {errorMessage && !errorMessages[errorMessage] && (

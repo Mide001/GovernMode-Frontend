@@ -1,4 +1,5 @@
-export const EncryptenContractAddress = "0x52AcA4EcD92E7DCb1d37dc1e012C26Bbb2121114";
+export const EncryptenContractAddress =
+  "0x997719e5f55655bE1CdCFbF90bC1516F7Ca805cF";
 export const EncryptenAbi = [
   {
     inputs: [
