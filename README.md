@@ -1,29 +1,49 @@
-This is a [RainbowKit](https://rainbowkit.com) + [wagmi](https://wagmi.sh) + [Next.js](https://nextjs.org/) project bootstrapped with [`create-rainbowkit`](/packages/create-rainbowkit).
+# GovernMode
+
+GovernMode is a decentralized autonomous organization (DAO) built on the Mode blockchain. It aims to empower its community members to participate in governance decisions related to the protocol and ecosystem development. GovernMode will be open-sourced, fostering transparency and community collaboration.
+
+## Features
+
+- **Decentralized Governance:** Community members can create and vote on proposals to shape the direction of GovernMode.
+- **Transparent Decision-making:** All proposals and voting outcomes are publicly recorded on the blockchain for transparency.
+- **Permissionless Participation:** Anyone can become a member of GovernMode and participate in governance activities.
+
+## Auction Feature (Coming Soon)
+
+GovernMode will soon introduce an auction feature to enable the fair and efficient allocation of resources within the ecosystem. This auction mechanism will allow participants to bid on various assets or services, fostering liquidity and value creation.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/Mide001/GovernMode-Frontend.git
+   ```
 
-```bash
-npm run dev
-```
+2. Install dependencies:
+   ```bash
+   cd GovernMode-Frontend
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Run Frontend Locally 
+  ```bash 
+  npm run dev
+  ```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Contributing
 
-## Learn More
+We welcome contributions from the community to enhance GovernMode's features and functionality. If you'd like to contribute, please follow these steps:
 
-To learn more about this stack, take a look at the following resources:
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a pull request.
 
-- [RainbowKit Documentation](https://rainbowkit.com) - Learn how to customize your wallet connection flow.
-- [wagmi Documentation](https://wagmi.sh) - Learn how to interact with Ethereum.
-- [Next.js Documentation](https://nextjs.org/docs) - Learn how to build a Next.js application.
+## License
 
-You can check out [the RainbowKit GitHub repository](https://github.com/rainbow-me/rainbowkit) - your feedback and contributions are welcome!
+This project is licensed under the [MIT License](LICENSE).
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For any inquiries or support, please contact us at [governmode@gmail.com](mailto:governmode@gmail.com).
