@@ -44,8 +44,8 @@ const NewProposal = () => {
         setLoading(false);
         throw new Error(errorMessages.isConnected);
       }
-      // Validate title (should be only text)
-      if (!/^[a-zA-Z\s]+$/.test(title)) {
+      // Validate title (should be only text and numbers)
+      if (!/^[a-zA-Z0-9\s]+$/.test(title)) {
         setLoading(false);
         throw new Error(errorMessages.invalidTitle);
       }

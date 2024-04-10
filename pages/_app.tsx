@@ -3,29 +3,31 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import { modeTestnet } from "wagmi/chains";
+import { useEffect } from "react";
+import { config } from "../components/config";
 import {
-  getDefaultConfig,
   RainbowKitProvider,
   lightTheme,
   darkTheme,
 } from "@rainbow-me/rainbowkit";
-
-const config = getDefaultConfig({
-  appName: "GovernMode",
-  projectId: "9a4b5a26abe0f8427056e21b695a2cf6",
-  chains: [
-    modeTestnet,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
-      ? [modeTestnet]
-      : []),
-  ],
-  ssr: true,
-});
-
-const client = new QueryClient();
+import { switchChain, getAccount } from "@wagmi/core";
+import { modeTestnet } from "viem/chains";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const switchToChain = async () => {
+      await switchChain(config, { chainId: modeTestnet.id });
+    };
+
+    const account = getAccount(config);
+    const chainId = account.chainId;
+    if (chainId !== modeTestnet.id) {
+      switchToChain();
+    }
+  }, []); 
+
+  const client = new QueryClient();
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>

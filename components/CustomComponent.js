@@ -208,6 +208,8 @@ const CustomComponent = () => {
           onClose={() => setNotification(null)}
         />
       )}
+      <div>
+    </div>
       <div className="max-w-3xl mx-auto mb-4 mb-4 flex justify-between items-center">
         <div className="md:flex flex-1 md:ml-4 md:mr-4 ml-2 mr-2 relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
