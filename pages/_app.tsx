@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { useEffect } from "react";
-import { config } from "../components/config";
+import { config } from "../config/config";
 import {
   RainbowKitProvider,
   lightTheme,

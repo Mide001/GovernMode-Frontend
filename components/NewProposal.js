@@ -4,7 +4,7 @@ import { EncryptenContractAddress, EncryptenAbi } from "../constant";
 import Notification from "./Notification";
 import { useAccount, useWriteContract } from "wagmi";
 import { waitForTransactionReceipt } from "@wagmi/core";
-import { config } from "./config";
+import { config } from "../config/config";
 
 const NewProposal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

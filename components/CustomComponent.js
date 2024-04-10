@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { EncryptenContractAddress, EncryptenAbi } from "../constant";
 import { UpvoteIcon, DownvoteIcon } from "../assets/ConstantIcons";
-import { useAccount, useReadContract, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useSwitchChain,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
 import { waitForTransactionReceipt } from "@wagmi/core";
-import { config } from "./config";
+import { config } from "../config/config";
 import Notification from "./Notification";
 import LoadingSpinner from "./LoadingSpinner";
 import { SearchIcon } from "../assets/ConstantIcons";
+import LoadingAnimation from "./LoadingAnimation";
 import Link from "next/link";
 
 const CustomComponent = () => {
@@ -28,6 +34,13 @@ const CustomComponent = () => {
     address: EncryptenContractAddress,
     functionName: "getAllProposals",
   });
+
+  const { switchChain } = useSwitchChain();
+  const account = useAccount();
+
+  const switchToChain = async () => {
+    await switchChain({ chainId: Number(919) });
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -186,6 +199,25 @@ const CustomComponent = () => {
     );
   }
 
+  if (account.chainId !== Number(919)) {
+    return (
+      <div
+        className="container mx-auto flex flex-col justify-center items-center"
+        style={{ minHeight: "65vh" }}
+      >
+        <span className="text-gray-200 mb-4">
+          Connect to Mode Testnet to access GovernMode proposals
+        </span>
+        <button
+          onClick={switchToChain}
+          className="border border-[#D7FF00] text-[#D7FF00] px-4 py-2 rounded-full flex items-center"
+        >
+          Connect ModeTestnet
+        </button>
+      </div>
+    );
+  }
+
   if (loading && !initialFetchDone) {
     return (
       <>
@@ -208,8 +240,7 @@ const CustomComponent = () => {
           onClose={() => setNotification(null)}
         />
       )}
-      <div>
-    </div>
+      <div></div>
       <div className="max-w-3xl mx-auto mb-4 mb-4 flex justify-between items-center">
         <div className="md:flex flex-1 md:ml-4 md:mr-4 ml-2 mr-2 relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -308,13 +339,5 @@ const CustomComponent = () => {
     </>
   );
 };
-
-const LoadingAnimation = () => (
-  <span className="loader">
-    <span className="loader__dot">•</span>
-    <span className="loader__dot">•</span>
-    <span className="loader__dot">•</span>
-  </span>
-);
 
 export default CustomComponent;
