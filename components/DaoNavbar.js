@@ -15,12 +15,7 @@ const DaoNavbar = () => {
           </div>
 
           <div className="mr-2">
-            <ConnectButton
-              accountStatus={{
-                smallScreen: "avatar",
-                largeScreen: "full",
-              }}
-            />
+          <ConnectButton accountStatus="avatar" />
           </div>
         </div>
       </nav>

@@ -1,9 +1,28 @@
-import { createConfig, http } from "@wagmi/core";
-import { modeTestnet } from "viem/chains";
+import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import {
+  rainbowWallet,
+  walletConnectWallet,
+  metaMaskWallet
+} from '@rainbow-me/rainbowkit/wallets';
+import { createConfig, http } from 'wagmi';
+import { modeTestnet } from 'viem/chains';
+
+
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: 'Recommended Wallet',
+      wallets: [rainbowWallet, walletConnectWallet, metaMaskWallet],
+    },
+  ],
+  {
+    appName: "GovernMode",
+    projectId: "9a4b5a26abe0f8427056e21b695a2cf6",
+  }
+);
 
 export const config = createConfig({
-  appName: "GovernMode",
-  projectId: "9a4b5a26abe0f8427056e21b695a2cf6",
+  connectors,
   chains: [
     modeTestnet,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
@@ -16,3 +35,4 @@ export const config = createConfig({
     [modeTestnet.id]: http("https://sepolia.mode.network/"),
   },
 });
+
