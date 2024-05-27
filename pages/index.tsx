@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       <Head>
         <title>GovernMode</title>
         <meta
-          content="GovernMode - Voting with hidden votes until round completes"
+          content="GovernMode - A Governance Application Deployed On Mode Blockchain"
           name="description"
         />
         <link href="/favicon.ico" rel="icon" />

@@ -7,6 +7,7 @@ import {
 import { createConfig, http } from 'wagmi';
 import { modeTestnet } from 'viem/chains';
 
+// { projectId, walletConnectParameters, appName, appDescription, appUrl, appIcon, }:
 
 const connectors = connectorsForWallets(
   [
@@ -16,8 +17,11 @@ const connectors = connectorsForWallets(
     },
   ],
   {
-    appName: "GovernMode",
     projectId: "9a4b5a26abe0f8427056e21b695a2cf6",
+    appName: "GovernMode",
+    appDescription: "GovernMode - A Governance Application Deployed On Mode Blockchain",
+    appUrl: "www.governmode.xyz",
+    appIcon: "./favicon.ico"
   }
 );
 

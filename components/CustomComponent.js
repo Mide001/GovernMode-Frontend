@@ -10,6 +10,8 @@ import {
 import { waitForTransactionReceipt } from "@wagmi/core";
 import { config } from "../config/config";
 import Notification from "./Notification";
+import NewProposal from "./NewProposal";
+import Footer from "./Footer";
 import LoadingSpinner from "./LoadingSpinner";
 import { SearchIcon } from "../assets/ConstantIcons";
 import LoadingAnimation from "./LoadingAnimation";
@@ -233,6 +235,7 @@ const CustomComponent = () => {
 
   return (
     <>
+      <NewProposal />
       {notification && (
         <Notification
           message={notification.message}
@@ -276,9 +279,12 @@ const CustomComponent = () => {
           } max-w-3xl mx-auto p-4 mb-4`}
         >
           <div className="border-b p-4">
-            <h2 className="text-xl text-[#191970] font-semibold">
+            <Link
+              href={`/proposal/${proposal.id}`}
+              className="text-xl text-[#191970] font-semibold"
+            >
               {proposal.title}
-            </h2>
+            </Link>
             <p className="text-gray-600 text-sm">
               <Link
                 href={`https://sepolia.explorer.mode.network/address/${proposal.creatorAddress}`}
@@ -290,13 +296,11 @@ const CustomComponent = () => {
           <div className="p-4">
             <p className="text-gray-600">{proposal.content}</p>
           </div>
-
           <div className="flex justify-end">
             <span className="bg-gray-200 text-gray-800 py-1 px-2 rounded-lg text-sm">
               End Date: {proposal.endTime}
             </span>
           </div>
-
           <div className="flex items-center justify-between p-4">
             <span
               className={`inline-block px-2 py-1 text-sm rounded ${
@@ -308,34 +312,51 @@ const CustomComponent = () => {
               {proposal.status}
             </span>
             <div className="flex items-center">
-              <button
-                className="text-gray-700 text-sm py-2 px-4 mr-2 flex items-center"
-                onClick={() => castVote(proposal.id, true)}
-                disabled={loadingStates[proposal.id]}
-              >
-                <UpvoteIcon className="mr-1" />
-                {loadingStates[proposal.id] ? (
-                  <LoadingAnimation />
-                ) : (
-                  proposal.upVote
-                )}
-              </button>
-              <button
-                className="text-gray-700 text-sm py-2 px-4 flex items-center"
-                onClick={() => castVote(proposal.id, false)}
-                disabled={loadingStates[proposal.id]}
-              >
-                <DownvoteIcon className="mr-1" />
-                {loadingStates[proposal.id] ? (
-                  <LoadingAnimation />
-                ) : (
-                  proposal.downVote
-                )}
-              </button>
-            </div>
+  <button
+    className="text-gray-700 text-sm py-2 px-4 mr-2 flex items-center"
+    onClick={() => {
+      if (proposal.status === 'active') {
+        castVote(proposal.id, true);
+      }
+    }}
+    disabled={!isConnected || loadingStates[proposal.id] || proposal.status !== 'active'}
+  >
+    <UpvoteIcon className="mr-1" />
+    {loadingStates[proposal.id] ? (
+      <LoadingAnimation />
+    ) : (
+      proposal.upVote
+    )}
+  </button>
+  <button
+    className="text-gray-700 text-sm py-2 px-4 flex items-center"
+    onClick={() => {
+      if (proposal.status === 'active') {
+        castVote(proposal.id, false);
+      }
+    }}
+    disabled={!isConnected || loadingStates[proposal.id] || proposal.status !== 'active'}
+  >
+    <DownvoteIcon className="mr-1" />
+    {loadingStates[proposal.id] ? (
+      <LoadingAnimation />
+    ) : (
+      proposal.downVote
+    )}
+  </button>
+</div>
+
           </div>
         </div>
       ))}
+      {filteredProposals.length === 0 && (
+        <div
+          className="mx-auto p-4 mb-4 text-center text-gray-200"
+          style={{ minHeight: "65vh" }}
+        >
+          No proposals found matching the search criteria.
+        </div>
+      )}
     </>
   );
 };

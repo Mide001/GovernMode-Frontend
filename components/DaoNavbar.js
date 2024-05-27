@@ -15,7 +15,7 @@ const DaoNavbar = () => {
           </div>
 
           <div className="mr-2">
-          <ConnectButton accountStatus="avatar" />
+            <ConnectButton chainStatus="icon" />
           </div>
         </div>
       </nav>
