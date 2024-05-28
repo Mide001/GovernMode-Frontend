@@ -1,25 +1,51 @@
 export const EncryptenContractAddress =
-  "0x997719e5f55655bE1CdCFbF90bC1516F7Ca805cF";
+  "0x63d9ecCBeB0e0453056F247716aC3e853BB08a16";
 export const EncryptenAbi = [
   {
     inputs: [
       {
         internalType: "string",
-        name: "_title",
+        name: "title",
         type: "string",
       },
       {
         internalType: "string",
-        name: "_content",
+        name: "content",
         type: "string",
       },
       {
         internalType: "uint256",
-        name: "_durationInDays",
+        name: "durationInDays",
         type: "uint256",
       },
     ],
     name: "createProposal",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "proposalId",
+        type: "uint256",
+      },
+    ],
+    name: "finalizeProposal",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "newMinBalance",
+        type: "uint256",
+      },
+    ],
+    name: "setMinBalance",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -76,12 +102,12 @@ export const EncryptenAbi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_proposalId",
+        name: "proposalId",
         type: "uint256",
       },
       {
         internalType: "bool",
-        name: "_support",
+        name: "support",
         type: "bool",
       },
     ],
@@ -119,12 +145,12 @@ export const EncryptenAbi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_proposalId",
+        name: "proposalId",
         type: "uint256",
       },
       {
         internalType: "address",
-        name: "_memberAddress",
+        name: "memberAddress",
         type: "address",
       },
     ],
@@ -143,7 +169,7 @@ export const EncryptenAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "_memberAddress",
+        name: "memberAddress",
         type: "address",
       },
     ],
@@ -205,7 +231,7 @@ export const EncryptenAbi = [
             type: "uint256",
           },
           {
-            internalType: "enum Encrypten.ProposalStatus",
+            internalType: "enum GovernMode.ProposalStatus",
             name: "status",
             type: "uint8",
           },
@@ -215,7 +241,7 @@ export const EncryptenAbi = [
             type: "address",
           },
         ],
-        internalType: "struct Encrypten.Proposal[]",
+        internalType: "struct GovernMode.Proposal[]",
         name: "",
         type: "tuple[]",
       },
@@ -227,7 +253,7 @@ export const EncryptenAbi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_proposalId",
+        name: "proposalId",
         type: "uint256",
       },
     ],
@@ -264,7 +290,7 @@ export const EncryptenAbi = [
         type: "uint256",
       },
       {
-        internalType: "enum Encrypten.ProposalStatus",
+        internalType: "enum GovernMode.ProposalStatus",
         name: "status",
         type: "uint8",
       },

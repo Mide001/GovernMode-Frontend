@@ -11,7 +11,6 @@ import { waitForTransactionReceipt } from "@wagmi/core";
 import { config } from "../config/config";
 import Notification from "./Notification";
 import NewProposal from "./NewProposal";
-import Footer from "./Footer";
 import LoadingSpinner from "./LoadingSpinner";
 import { SearchIcon } from "../assets/ConstantIcons";
 import LoadingAnimation from "./LoadingAnimation";
@@ -145,16 +144,21 @@ const CustomComponent = () => {
       });
     } catch (error) {
       console.log("Error Message: ", error.message);
-      if (error.message.includes("Already Voted")) {
+      if (error.message.includes("Already voted!")) {
         setNotification({
-          message: `${address.slice(0, 3)}...${address.slice(
-            -2
-          )} have already voted on this proposal.`,
+          message: `${address.slice(0, 3)}...${address.slice(-2)} have already voted on this proposal.`,
           type: "error",
         });
       } else if (error.message.includes("Voting is closed!")) {
         setNotification({
           message: "Proposal Voting is closed!",
+          type: "error",
+        });
+      } else if (
+        error.message.includes("Insufficient balance to perform this action")
+      ) {
+        setNotification({
+          message: "Minimum balance of 0.002 ETH required!",
           type: "error",
         });
       } else {
@@ -312,40 +316,47 @@ const CustomComponent = () => {
               {proposal.status}
             </span>
             <div className="flex items-center">
-  <button
-    className="text-gray-700 text-sm py-2 px-4 mr-2 flex items-center"
-    onClick={() => {
-      if (proposal.status === 'active') {
-        castVote(proposal.id, true);
-      }
-    }}
-    disabled={!isConnected || loadingStates[proposal.id] || proposal.status !== 'active'}
-  >
-    <UpvoteIcon className="mr-1" />
-    {loadingStates[proposal.id] ? (
-      <LoadingAnimation />
-    ) : (
-      proposal.upVote
-    )}
-  </button>
-  <button
-    className="text-gray-700 text-sm py-2 px-4 flex items-center"
-    onClick={() => {
-      if (proposal.status === 'active') {
-        castVote(proposal.id, false);
-      }
-    }}
-    disabled={!isConnected || loadingStates[proposal.id] || proposal.status !== 'active'}
-  >
-    <DownvoteIcon className="mr-1" />
-    {loadingStates[proposal.id] ? (
-      <LoadingAnimation />
-    ) : (
-      proposal.downVote
-    )}
-  </button>
-</div>
-
+              <button
+                className="text-gray-700 text-sm py-2 px-4 mr-2 flex items-center"
+                onClick={() => {
+                  if (proposal.status === "active") {
+                    castVote(proposal.id, true);
+                  }
+                }}
+                disabled={
+                  !isConnected ||
+                  loadingStates[proposal.id] ||
+                  proposal.status !== "active"
+                }
+              >
+                <UpvoteIcon className="mr-1" />
+                {loadingStates[proposal.id] ? (
+                  <LoadingAnimation />
+                ) : (
+                  proposal.upVote
+                )}
+              </button>
+              <button
+                className="text-gray-700 text-sm py-2 px-4 flex items-center"
+                onClick={() => {
+                  if (proposal.status === "active") {
+                    castVote(proposal.id, false);
+                  }
+                }}
+                disabled={
+                  !isConnected ||
+                  loadingStates[proposal.id] ||
+                  proposal.status !== "active"
+                }
+              >
+                <DownvoteIcon className="mr-1" />
+                {loadingStates[proposal.id] ? (
+                  <LoadingAnimation />
+                ) : (
+                  proposal.downVote
+                )}
+              </button>
+            </div>
           </div>
         </div>
       ))}
